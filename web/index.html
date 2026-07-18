@@ -27,7 +27,18 @@
     .docs-command span { color: #999; }
     .docs-command code { flex: 1; font: 11px var(--mono); }
     .docs-command button { border: 0; background: transparent; font: 9px var(--mono); cursor: pointer; }
-    @media(max-width:800px) { .docs-heading h1 { font-size: 42px; } .docs-grid { grid-template-columns: 1fr; } .docs-card-wide { grid-column: auto; } .docs-command { align-items: flex-start; flex-wrap: wrap; } .docs-command code { flex-basis: 100%; order: 3; } }
+    .progress-timeline { margin-top: 36px; display: grid; gap: 0; }
+    .timeline-step { display: flex; align-items: center; gap: 11px; color: #aaa; }
+    .timeline-step > span { width: 22px; height: 22px; border: 1px solid #c9c4ba; border-radius: 50%; display: grid; place-content: center; font: 8px var(--mono); }
+    .timeline-step.active { color: var(--ink); }
+    .timeline-step.active > span { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .timeline-step strong, .timeline-step small { display: block; font: 9px var(--mono); letter-spacing: .06em; }
+    .timeline-step small { color: #aaa; font-size: 8px; margin-top: 4px; letter-spacing: 0; }
+    .timeline-line { height: 16px; width: 1px; background: #d2cdc4; margin-left: 11px; }
+    .progress-timeline + .artifact-tabs { margin-top: 30px; }
+    .workspace-actions { flex-wrap: wrap; justify-content: flex-end; }
+    .ghost-button { white-space: nowrap; }
+    @media(max-width:800px) { .docs-heading h1 { font-size: 42px; } .docs-grid { grid-template-columns: 1fr; } .docs-card-wide { grid-column: auto; } .docs-command { align-items: flex-start; flex-wrap: wrap; } .docs-command code { flex-basis: 100%; order: 3; } .progress-timeline { display: none; } }
   </style>
 </head>
 <body>
@@ -64,11 +75,18 @@
     <section class="app-body">
       <aside class="sidebar">
         <div class="sidebar-intro"><p class="eyebrow">YOUR DEPLOYMENT KIT</p><h2>From repo<br>to runway.</h2></div>
+        <div class="progress-timeline" aria-label="Generation progress">
+          <div class="timeline-step active"><span>01</span><div><strong>ANALYZE</strong><small>Repository signals</small></div></div>
+          <div class="timeline-line"></div>
+          <div class="timeline-step active"><span>02</span><div><strong>GENERATE</strong><small>Deployment assets</small></div></div>
+          <div class="timeline-line"></div>
+          <div class="timeline-step"><span>03</span><div><strong>VALIDATE</strong><small>Ready to verify</small></div></div>
+        </div>
         <nav id="artifactTabs" class="artifact-tabs"></nav>
         <div class="sidebar-footer"><span class="status-dot"></span><div><strong>LOCAL ENGINE</strong><small>Ready to analyze</small></div></div>
       </aside>
       <section class="workspace">
-        <div class="workspace-top"><div><p class="eyebrow">ARTIFACT GENERATOR</p><h1 id="artifactTitle">Dockerfile</h1></div><div class="workspace-actions"><button class="ghost-button" id="copyButton">COPY CODE</button><button class="ghost-button">DOWNLOAD ↓</button></div></div>
+        <div class="workspace-top"><div><p class="eyebrow">ARTIFACT GENERATOR</p><h1 id="artifactTitle">Dockerfile</h1></div><div class="workspace-actions"><button class="ghost-button" id="regenerateButton">REGENERATE ↻</button><button class="ghost-button" id="explainButton">EXPLAIN ?</button><button class="ghost-button" id="copyButton">COPY CODE</button><button class="ghost-button" id="downloadAllButton">DOWNLOAD ALL ZIP ↓</button></div></div>
         <div class="artifact-meta"><span id="artifactTag">CONTAINERIZATION</span><span class="meta-line"></span><span id="artifactDesc">A production-ready multi-stage image built from your application analysis.</span></div>
         <div class="code-window"><div class="window-bar"><div class="window-dots"><i></i><i></i><i></i></div><span id="fileName">Dockerfile</span><span class="validated">● GENERATED</span></div><pre id="codePreview"></pre></div>
         <div class="bottom-grid"><div class="analysis-card"><p class="eyebrow">ANALYSIS SIGNALS</p><div class="signals"><span>GO 1.23</span><span>GIN</span><span>PORT 8080</span><span>HEALTH /HEALTH</span></div></div><div class="next-card"><span>NEXT UP</span><strong id="nextArtifact">docker-compose.yml</strong><button id="nextButton">OPEN ↗</button></div></div>
@@ -82,11 +100,13 @@
             <article class="docs-card"><span class="docs-number">05 / VALIDATE</span><h3>Trust, but verify</h3><p>Available local tools validate the output. Each result is reported as passed, failed, or skipped when external infrastructure is unavailable.</p></article>
           </div>
           <div class="docs-command"><span>QUICK START</span><code>kingdom ./your-go-app --output generated</code><button id="copyDocsCommand">COPY â†—</button></div>
+          <div class="docs-command"><span>DEPLOY LOCALLY</span><code>docker compose up --build</code><button id="copyDeployCommand">COPY â†—</button></div>
         </div>
       </section>
     </section>
   </main>
   <div id="toast" class="toast">Copied to clipboard</div>
   <script src="app.js"></script>
+  <script src="features.js"></script>
 </body>
 </html>
