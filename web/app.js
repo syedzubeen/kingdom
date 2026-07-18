@@ -43,6 +43,13 @@ function selectDocs() {
   $('#docsPanel').classList.add('visible');
 }
 selectArtifact(0);
+$('#brandHome').addEventListener('click', (event) => {
+  event.preventDefault();
+  $('#app').classList.remove('visible');
+  $('#landing').style.display = 'block';
+  $('#landing').classList.remove('leaving');
+  window.scrollTo(0, 0);
+});
 $('#enterButton').addEventListener('click', () => { $('#landing').classList.add('leaving'); setTimeout(() => { $('#landing').style.display = 'none'; $('#app').classList.add('visible'); }, 720); });
 $('#nextButton').addEventListener('click', () => selectArtifact((artifacts.findIndex(a => a.name === $('#nextArtifact').textContent) + artifacts.length) % artifacts.length));
 $('#generateButton').addEventListener('click', () => { const button = $('#generateButton'); button.innerHTML = 'ANALYZING <span>◌</span>'; setTimeout(() => { button.innerHTML = 'GENERATE <span>↗</span>'; selectArtifact(0); showToast('Repository analyzed · artifacts ready'); }, 900); });
