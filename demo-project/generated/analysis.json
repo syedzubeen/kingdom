@@ -1,0 +1,39 @@
+{
+  "project": "demo-project",
+  "module": "example.com/kingdom-demo",
+  "language": "Go",
+  "goVersion": "1.23",
+  "framework": "net/http",
+  "entryPoints": [
+    "cmd\\api\\main.go"
+  ],
+  "ports": [
+    8080
+  ],
+  "port": 8080,
+  "routes": [
+    "GET /api/v1/meta",
+    "GET /api/v1/projects",
+    "GET /api/v1/projects/",
+    "GET /health",
+    "GET /ready"
+  ],
+  "healthEndpoint": "/health",
+  "databases": [],
+  "database": null,
+  "environmentVariables": [
+    "APP_ENV",
+    "DB_HOST",
+    "DB_NAME",
+    "DB_PASSWORD",
+    "DB_PORT",
+    "DB_USER",
+    "LOG_LEVEL",
+    "PORT",
+    "REDIS_URL"
+  ],
+  "dockerfileExists": false,
+  "makefileExists": true,
+  "testsPresent": true,
+  "buildCommand": "go build ./..."
+}
