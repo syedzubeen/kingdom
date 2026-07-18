@@ -10,6 +10,24 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
     .enter-button { z-index: 4; pointer-events: auto; }
+    .docs-hidden { display: none !important; }
+    .docs-panel { display: none; }
+    .docs-panel.visible { display: block; animation: fadein .45s both; }
+    .docs-heading { border-bottom: 1px solid #c9c4ba; padding-bottom: 30px; max-width: 680px; }
+    .docs-heading h1 { font-size: 58px; letter-spacing: -.08em; line-height: .9; margin: 0 0 18px; }
+    .docs-heading p:last-child { color: #777; max-width: 500px; font-size: 14px; line-height: 1.5; }
+    .docs-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 28px; }
+    .docs-card { border: 1px solid #d4cfc6; padding: 22px; min-height: 150px; }
+    .docs-card-wide { grid-column: 1 / -1; background: #e9e5dc; }
+    .docs-number { font: 9px var(--mono); color: #b84e6b; letter-spacing: .1em; }
+    .docs-card h2 { font-size: 30px; letter-spacing: -.07em; margin: 16px 0 8px; }
+    .docs-card h3 { font-size: 18px; letter-spacing: -.04em; margin: 18px 0 8px; }
+    .docs-card p { color: #777; font-size: 12px; line-height: 1.5; margin: 0; }
+    .docs-command { display: flex; align-items: center; gap: 18px; margin-top: 26px; border-top: 1px solid #c9c4ba; border-bottom: 1px solid #c9c4ba; padding: 15px 0; font: 10px var(--mono); }
+    .docs-command span { color: #999; }
+    .docs-command code { flex: 1; font: 11px var(--mono); }
+    .docs-command button { border: 0; background: transparent; font: 9px var(--mono); cursor: pointer; }
+    @media(max-width:800px) { .docs-heading h1 { font-size: 42px; } .docs-grid { grid-template-columns: 1fr; } .docs-card-wide { grid-column: auto; } .docs-command { align-items: flex-start; flex-wrap: wrap; } .docs-command code { flex-basis: 100%; order: 3; } }
   </style>
 </head>
 <body>
@@ -54,6 +72,17 @@
         <div class="artifact-meta"><span id="artifactTag">CONTAINERIZATION</span><span class="meta-line"></span><span id="artifactDesc">A production-ready multi-stage image built from your application analysis.</span></div>
         <div class="code-window"><div class="window-bar"><div class="window-dots"><i></i><i></i><i></i></div><span id="fileName">Dockerfile</span><span class="validated">● GENERATED</span></div><pre id="codePreview"></pre></div>
         <div class="bottom-grid"><div class="analysis-card"><p class="eyebrow">ANALYSIS SIGNALS</p><div class="signals"><span>GO 1.23</span><span>GIN</span><span>PORT 8080</span><span>HEALTH /HEALTH</span></div></div><div class="next-card"><span>NEXT UP</span><strong id="nextArtifact">docker-compose.yml</strong><button id="nextButton">OPEN ↗</button></div></div>
+        <div id="docsPanel" class="docs-panel">
+          <div class="docs-heading"><p class="eyebrow">KINGDOM FIELD GUIDE</p><h1>Documentation</h1><p>Understand how Kingdom turns a repository into a deployment kit you can inspect, validate, and ship.</p></div>
+          <div class="docs-grid">
+            <article class="docs-card docs-card-wide"><span class="docs-number">01 / THE IDEA</span><h2>From repo to runway.</h2><p>Kingdom combines deterministic repository analysis with artifact generation. It reads what your application actually does before proposing infrastructure around it.</p></article>
+            <article class="docs-card"><span class="docs-number">02 / START</span><h3>Paste a repository</h3><p>Enter a GitHub URL or local path in the field above, then select Generate to begin the analysis flow.</p></article>
+            <article class="docs-card"><span class="docs-number">03 / ANALYZE</span><h3>Inspect the signals</h3><p>Kingdom looks for language, version, framework, entry point, ports, routes, health checks, environment variables, tests, and dependencies.</p></article>
+            <article class="docs-card"><span class="docs-number">04 / GENERATE</span><h3>Review every artifact</h3><p>Move through Docker, Compose, CI, Jenkins, Kubernetes, Terraform, and deployment documentation from the artifact list.</p></article>
+            <article class="docs-card"><span class="docs-number">05 / VALIDATE</span><h3>Trust, but verify</h3><p>Available local tools validate the output. Each result is reported as passed, failed, or skipped when external infrastructure is unavailable.</p></article>
+          </div>
+          <div class="docs-command"><span>QUICK START</span><code>kingdom ./your-go-app --output generated</code><button id="copyDocsCommand">COPY â†—</button></div>
+        </div>
       </section>
     </section>
   </main>

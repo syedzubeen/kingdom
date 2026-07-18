@@ -19,8 +19,15 @@ artifacts.forEach((artifact, index) => {
   tab.addEventListener('click', () => selectArtifact(index));
   tabs.appendChild(tab);
 });
+const docsTab = document.createElement('button');
+docsTab.className = 'artifact-tab docs-tab';
+docsTab.innerHTML = '<span>Documentation</span><span class="tab-index">DOCS</span>';
+docsTab.addEventListener('click', selectDocs);
+tabs.appendChild(docsTab);
 function selectArtifact(index) {
   const artifact = artifacts[index];
+  document.querySelectorAll('.workspace-top, .artifact-meta, .code-window, .bottom-grid').forEach((element) => element.classList.remove('docs-hidden'));
+  $('#docsPanel').classList.remove('visible');
   document.querySelectorAll('.artifact-tab').forEach((tab, i) => tab.classList.toggle('selected', i === index));
   $('#artifactTitle').textContent = artifact.name;
   $('#artifactTag').textContent = artifact.tag;
@@ -29,9 +36,16 @@ function selectArtifact(index) {
   $('#codePreview').textContent = artifact.code;
   $('#nextArtifact').textContent = artifacts[(index + 1) % artifacts.length].name;
 }
+function selectDocs() {
+  document.querySelectorAll('.artifact-tab').forEach((tab) => tab.classList.remove('selected'));
+  docsTab.classList.add('selected');
+  document.querySelectorAll('.workspace-top, .artifact-meta, .code-window, .bottom-grid').forEach((element) => element.classList.add('docs-hidden'));
+  $('#docsPanel').classList.add('visible');
+}
 selectArtifact(0);
 $('#enterButton').addEventListener('click', () => { $('#landing').classList.add('leaving'); setTimeout(() => { $('#landing').style.display = 'none'; $('#app').classList.add('visible'); }, 720); });
 $('#nextButton').addEventListener('click', () => selectArtifact((artifacts.findIndex(a => a.name === $('#nextArtifact').textContent) + artifacts.length) % artifacts.length));
 $('#generateButton').addEventListener('click', () => { const button = $('#generateButton'); button.innerHTML = 'ANALYZING <span>◌</span>'; setTimeout(() => { button.innerHTML = 'GENERATE <span>↗</span>'; selectArtifact(0); showToast('Repository analyzed · artifacts ready'); }, 900); });
 $('#copyButton').addEventListener('click', async () => { try { await navigator.clipboard.writeText($('#codePreview').textContent); } catch (_) {} showToast('Copied to clipboard'); });
+$('#copyDocsCommand').addEventListener('click', async () => { try { await navigator.clipboard.writeText('kingdom ./your-go-app --output generated'); } catch (_) {} showToast('Quick start copied'); });
 function showToast(message) { const toast = $('#toast'); toast.textContent = message; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2200); }
