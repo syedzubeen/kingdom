@@ -1,7 +1,0 @@
-pipeline {
-  agent any
-  stages {
-    stage('Test') { steps { sh 'go test ./...' } }
-    stage('Build') { steps { sh 'docker build -t kingdom:${BUILD_NUMBER} .' } }
-  }
-}
