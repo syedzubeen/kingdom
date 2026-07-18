@@ -19,6 +19,18 @@ The output directory contains `analysis.json`, Docker and CI assets, Kubernetes 
 
 Kingdom's first phase is deliberately deterministic. An AI provider can be added behind the generation layer later; the generated templates are conservative and derived from the analysis rather than guesses.
 
+## Deploy the UI to Vercel
+
+Kingdom includes a static UI in `web/` and a root `vercel.json` configured with the `Other` framework preset, no build command, and `web` as the output directory.
+
+```powershell
+npm install --global vercel
+vercel login
+vercel --prod
+```
+
+The UI is deployable as a static site. The local Python CLI and API generation workflow still run locally; connecting the deployed UI to a hosted Kingdom backend is a separate integration step.
+
 ## Development
 
 ```powershell
