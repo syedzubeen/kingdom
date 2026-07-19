@@ -2,6 +2,8 @@
 
 Kingdom is a DevOps bootstrap agent for Go applications. It inspects a repository, produces deployment assets, and validates the artifacts that are supported by tools installed on the local machine.
 
+![Kingdom demo](web/king-gif.gif)
+
 ## Quick start
 
 ```powershell
