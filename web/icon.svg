@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Kingdom app icon</title>
+  <desc id="desc">A cream K inside an electric orbital ring on a dark background.</desc>
+  <defs>
+    <linearGradient id="orbit" x1="58" y1="64" x2="454" y2="448" gradientUnits="userSpaceOnUse"><stop stop-color="#37A4FF"/><stop offset=".34" stop-color="#8D66FF"/><stop offset=".68" stop-color="#FF6F91"/><stop offset="1" stop-color="#FF894F"/></linearGradient>
+    <radialGradient id="field" cx="50%" cy="42%" r="65%"><stop stop-color="#171225"/><stop offset="1" stop-color="#050505"/></radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="12" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#field)"/>
+  <ellipse cx="256" cy="256" rx="171" ry="128" fill="none" stroke="url(#orbit)" stroke-width="24" transform="rotate(-32 256 256)" filter="url(#glow)"/>
+  <ellipse cx="256" cy="256" rx="171" ry="128" fill="none" stroke="url(#orbit)" stroke-width="7" transform="rotate(-32 256 256)"/>
+  <circle cx="104" cy="180" r="13" fill="#37A4FF"/><circle cx="417" cy="335" r="11" fill="#FF894F"/>
+  <path d="M183 139h48v89l83-89h58l-102 111 111 123h-61l-89-99v99h-48z" fill="#F4F1EA"/>
+</svg>
