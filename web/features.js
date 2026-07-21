@@ -2,8 +2,9 @@ const timelineSteps = document.querySelectorAll('.timeline-step');
 function markProgress(count) { timelineSteps.forEach((step, index) => step.classList.toggle('active', index < count)); }
 const scrollExplore = document.querySelector('.scroll-mark');
 scrollExplore?.addEventListener('click', () => document.querySelector('#artifactShowcase')?.scrollIntoView({behavior: 'smooth'}));
+const showcase = document.querySelector('#artifactShowcase');
 const showcaseCards = document.querySelectorAll('.showcase-card');
-window.addEventListener('scroll', () => { const offset = window.scrollY; showcaseCards.forEach((card, index) => card.style.setProperty('--parallax', `${Math.max(-24, Math.min(24, (offset - card.offsetTop) * (index % 2 ? -0.025 : 0.018)))}px`)); }, {passive: true});
+window.addEventListener('scroll', () => { const progress = window.scrollY - (showcase?.offsetTop || 0); showcaseCards.forEach((card, index) => card.style.setProperty('--parallax', `${Math.max(-42, Math.min(42, progress * (index % 2 ? -0.055 : 0.04)))}px`)); }, {passive: true});
 
 document.querySelector('#generateButton').addEventListener('click', () => {
   markProgress(2);
