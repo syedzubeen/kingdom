@@ -39,13 +39,28 @@
     .progress-timeline + .artifact-tabs { margin-top: 30px; }
     .workspace-actions { flex-wrap: wrap; justify-content: flex-end; }
     .ghost-button { white-space: nowrap; }
+    .landing { overflow: visible; }
+    .build-week { display: block; color: #777; text-decoration: none; margin-top: 7px; }
+    .build-week:hover { color: #f4f1ea; }
+    .scroll-mark { cursor: pointer; border: 0; background: transparent; }
+    .artifact-showcase { min-height: 100vh; padding: 15vh 9vw 18vh; background: #050505; position: relative; overflow: hidden; }
+    .showcase-header { display: flex; justify-content: space-between; align-items: end; border-bottom: 1px solid rgba(244,241,234,.18); padding-bottom: 28px; position: relative; z-index: 1; }
+    .showcase-header h2 { font-size: clamp(42px, 7vw, 104px); letter-spacing: -.09em; line-height: .82; margin: 0; }
+    .showcase-header p { color: #8b8783; font: 11px/1.5 var(--mono); max-width: 240px; margin: 0; }
+    .artifact-showcase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 38px; position: relative; z-index: 1; }
+    .showcase-card { min-height: 250px; padding: 22px; border: 1px solid rgba(244,241,234,.18); display: flex; flex-direction: column; justify-content: space-between; transform: translateY(var(--parallax, 0px)); transition: border-color .3s, background .3s; }
+    .showcase-card:nth-child(2) { margin-top: 55px; } .showcase-card:nth-child(3) { margin-top: 15px; } .showcase-card:nth-child(5) { margin-top: 42px; }
+    .showcase-card:hover { border-color: #ff6f91; background: rgba(255,255,255,.04); }
+    .showcase-number { color: #ff6f91; font: 10px var(--mono); } .showcase-card h3 { font-size: 29px; letter-spacing: -.07em; margin: 0; } .showcase-card p { color: #85817e; font: 11px/1.5 var(--mono); margin: 0; }
+    .showcase-mark { color: #f4f1ea; font-size: 42px; opacity: .9; }
+    @media(max-width:800px) { .showcase-header { display:block; } .showcase-header p { margin-top:24px; } .artifact-showcase-grid { grid-template-columns: 1fr; } .showcase-card:nth-child(n) { margin-top: 0; } }
     @media(max-width:800px) { .docs-heading h1 { font-size: 42px; } .docs-grid { grid-template-columns: 1fr; } .docs-card-wide { grid-column: auto; } .docs-command { align-items: flex-start; flex-wrap: wrap; } .docs-command code { flex-basis: 100%; order: 3; } .progress-timeline { display: none; } }
   </style>
 </head>
 <body>
   <div class="grain"></div>
   <main id="landing" class="landing screen active">
-    <div class="topline"><span>KINGDOM / DEVOPS BOOTSTRAP AGENT</span><span>V 0.1.0</span></div>
+    <div class="topline"><span>KINGDOM / DEVOPS BOOTSTRAP AGENT</span><span><span>V 0.1.0</span><a class="build-week" href="https://openai.devpost.com/" target="_blank" rel="noreferrer">OPENAI BUILD WEEK ↗</a></span></div>
     <div class="hero-orbit" aria-hidden="true">
       <div class="orbit-glow"></div>
       <div class="orbit-ring ring-one"><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -61,6 +76,17 @@
     <div class="side-note note-left">DETERMINISTIC<br>REPOSITORY ANALYSIS</div>
     <div class="side-note note-right">DOCKER / K8S / CI<br>VALIDATED OUTPUT</div>
     <div class="scroll-mark">SCROLL TO EXPLORE <span>↓</span></div>
+    <section id="artifactShowcase" class="artifact-showcase">
+      <div class="showcase-header"><h2>THE<br><em>DEPLOYMENT</em><br>KIT.</h2><p>SCROLL TO MOVE THROUGH THE ARTIFACTS KINGDOM CAN GENERATE FOR YOUR APPLICATION.</p></div>
+      <div class="artifact-showcase-grid">
+        <article class="showcase-card"><span class="showcase-number">01 / CONTAINER</span><div class="showcase-mark">◈</div><div><h3>Dockerfile</h3><p>Minimal, reproducible production image.</p></div></article>
+        <article class="showcase-card"><span class="showcase-number">02 / LOCAL</span><div class="showcase-mark">⌘</div><div><h3>Compose</h3><p>One command from clone to running service.</p></div></article>
+        <article class="showcase-card"><span class="showcase-number">03 / PIPELINE</span><div class="showcase-mark">↗</div><div><h3>CI / CD</h3><p>Tests and image builds for every change.</p></div></article>
+        <article class="showcase-card"><span class="showcase-number">04 / ORCHESTRATE</span><div class="showcase-mark">◎</div><div><h3>Kubernetes</h3><p>Deployment, service, config, and secrets.</p></div></article>
+        <article class="showcase-card"><span class="showcase-number">05 / INFRA</span><div class="showcase-mark">⌁</div><div><h3>Terraform</h3><p>Infrastructure you can inspect and apply.</p></div></article>
+        <article class="showcase-card"><span class="showcase-number">06 / HANDOFF</span><div class="showcase-mark">▤</div><div><h3>Docs</h3><p>A clear path from generated to deployed.</p></div></article>
+      </div>
+    </section>
   </main>
 
   <main id="app" class="app screen">
