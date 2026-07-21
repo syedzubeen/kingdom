@@ -1,6 +1,6 @@
 # Kingdom
 
-Kingdom is a DevOps bootstrap agent for Go applications. It inspects a repository, produces deployment assets, and validates the artifacts that are supported by tools installed on the local machine.
+Kingdom is a DevOps bootstrap agent for common Go, Node.js, and Python applications. It inspects a repository, produces deployment assets, and validates the artifacts that are supported by tools installed on the local machine.
 
 ![Kingdom demo](web/king-gif.gif)
 
@@ -31,10 +31,11 @@ cd kingdom
 python -m pip install -e .
 ```
 
-Run the CLI against a local Go project:
+Run the CLI against a local project or a GitHub URL:
 
 ```powershell
 kingdom .\path\to\go-project --output .\generated
+kingdom https://github.com/example/sample-app --output .\generated
 ```
 
 Run the local web interface:

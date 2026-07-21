@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+import json
 from pathlib import Path
 
 
@@ -10,8 +11,17 @@ def validate(output: str | Path, repository: str | Path | None = None) -> list[d
     checks = []
     if repository:
         repo = str(Path(repository).resolve())
-        checks.extend([("Go tests", ["go", "test", "./..."], repo),
-                       ("Go build", ["go", "build", "-buildvcs=false", "./..."], repo),
+        try:
+            language = json.loads((out / "analysis.json").read_text(encoding="utf-8")).get("language")
+        except (OSError, json.JSONDecodeError):
+            language = "Go"
+        if language == "Node.js":
+            checks.extend([("Node tests", ["npm", "run", "test", "--if-present"], repo), ("Node build", ["npm", "run", "build", "--if-present"], repo)])
+        elif language == "Python":
+            checks.extend([("Python compile", ["python", "-m", "compileall", "."], repo), ("Python tests", ["python", "-m", "pytest"], repo)])
+        else:
+            checks.extend([("Go tests", ["go", "test", "./..."], repo), ("Go build", ["go", "build", "-buildvcs=false", "./..."], repo)])
+        checks.extend([
                        ("Docker build", ["docker", "build", "-f", str(out / "Dockerfile"), "-t", "kingdom-validation", repo], None)])
     checks.extend([("Docker Compose config", ["docker", "compose", "-f", str(out / "docker-compose.yml"), "config"], None),
                    ("Terraform format", ["terraform", "-chdir=" + str(out / "terraform"), "fmt", "-check"], None),

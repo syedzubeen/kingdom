@@ -42,3 +42,23 @@ class KingdomTests(unittest.TestCase):
             self.assertNotIn(r"\n", secret)
             self.assertIn("  build {\n    context = \"..\"", terraform)
             self.assertIn("  ports {\n    internal = 8080", terraform)
+
+    def test_analyzer_detects_node_project(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "package.json").write_text('{"name":"web-api","dependencies":{"express":"^5.0.0"}}')
+            (root / "server.js").write_text("const express = require('express'); const app = express(); app.get('/health', () => {}); app.listen(process.env.PORT || 3000);")
+            result = analyze_repository(root)
+            self.assertEqual(result["language"], "Node.js")
+            self.assertEqual(result["framework"], "Express")
+            self.assertEqual(result["port"], 3000)
+            self.assertEqual(result["healthEndpoint"], "/health")
+
+    def test_generator_uses_python_profile(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "generated"
+            analysis = {"project": "py-api", "language": "Python", "version": "3.12", "port": 8000, "environmentVariables": []}
+            generate_artifacts(analysis, output)
+            dockerfile = (output / "Dockerfile").read_text()
+            self.assertIn("FROM python:3.12-slim", dockerfile)
+            self.assertIn("EXPOSE 8000", dockerfile)
